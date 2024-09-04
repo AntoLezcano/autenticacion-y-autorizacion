@@ -5,6 +5,7 @@ import { router } from "./routers/auth.routes.js";
 import morgan from "morgan";
 import cors from "cors";
 import { connectorDB } from "./db/database.js";
+
 const app = express();
 
 connectorDB();
@@ -17,8 +18,12 @@ app.use(
   })
 );
 app.use(morgan("dev"));
-app.use(cors());
-
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(router);
 
 app.listen(config.PORT, () => {
